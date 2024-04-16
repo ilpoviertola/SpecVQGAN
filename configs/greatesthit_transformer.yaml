@@ -15,7 +15,7 @@ model:
             padding: 0
         GPT_config:
           vocab_size: 1024
-          block_size: 477  # 53*5 + how many frames (1)
+          block_size: 342  # 53*5 + how many frames (1)
           n_layer: 24
           n_head: 16
           n_embd: 1024
@@ -23,7 +23,7 @@ model:
       target: specvqgan.modules.transformer.permuter.ColumnMajor
       params:
         H: 5  # mel_num, num of feats in specs / down_factor
-        W: 53  # cropped spec length / down_factor
+        W: 26  # cropped spec length / down_factor
     first_stage_config:
       target: specvqgan.models.vqgan.VQModel
       params:
@@ -83,7 +83,7 @@ data:
     sample_rate: 22050
     mel_num: 80
     spec_len: 430
-    spec_crop_len: 428
+    spec_crop_len: 416
     random_crop: False
 
     # rgb_feats_dir_path: './data/vggsound/feature_rgb_bninception_dim1024_21.5fps' # BNInception features
@@ -91,12 +91,12 @@ data:
     rgb_feats_dir_path: '/home/hdd/ilpo/datasets/greatesthit/features/resnet50_2048-256_h264_video_21.5fps_256side_22050hz_aac_len_5_splitby_random/resnet50' # ResNet50 features
     flow_feats_dir_path: null
     feat_depth: 2048
-    feat_len: 215
-    feat_crop_len: 212
+    feat_len: 105
+    feat_crop_len: 102
     feat_sampler_cfg:
       target: specvqgan.data.vggsound.ResampleFrames
       params:
-        feat_sample_size: 212  # will resample `feat_crop_len` evenly to match `feat_sample_size`
+        feat_sample_size: 102  # will resample `feat_crop_len` evenly to match `feat_sample_size`
         # times_to_repeat_after_resample: 5  # will duplicate each of `feat_sample_size` by this number
 
     train:
