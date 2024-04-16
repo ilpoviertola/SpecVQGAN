@@ -91,6 +91,7 @@ class GHFeats(torch.utils.data.Dataset):
             if feat_sampler_cfg is None
             else instantiate_from_config(feat_sampler_cfg)
         )
+        self.dataset = sorted(self.dataset)
 
     def _get_all_files_with_same_basename(self, basename: str, data_dir: Path) -> list:
         all_files = (
@@ -215,6 +216,7 @@ class GHSpecs(torch.utils.data.Dataset):
         self.video2target = {row[0]: self.label2target[row[5]] for row in gh_meta}
 
         self.transforms = CropImage([mel_num, spec_crop_len], random_crop)
+        self.dataset = sorted(self.dataset)
 
     def _get_all_files_with_same_basename(self, basename: str, data_dir: Path) -> list:
         all_files = (
